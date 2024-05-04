@@ -10,7 +10,7 @@ import { BASE_URL } from '../constants';
 export class DataService {
   constructor(
     @InjectModel(Categories.name)
-    private readonly categoriesModel: Model<CategoriesDocument>,
+    private categoriesModel: Model<CategoriesDocument>,
     @InjectModel(Brands.name)
     private readonly brandsModel: Model<BrandsDocument>,
     @InjectModel(Products.name)
@@ -40,8 +40,14 @@ export class DataService {
     }
 
     const [_category1, category2] = await this.categoriesModel.create([
-      { title: 'CPU', image: 'fixtures/cpus.webp' },
-      { title: 'GPU', image: 'fixtures/gpus.jpg' },
+      {
+        title: 'CPU',
+        image: 'fixtures/cpus.webp',
+      },
+      {
+        title: 'GPU',
+        image: 'fixtures/gpus.jpg',
+      },
     ]);
 
     const [brand1, brand2] = await this.brandsModel.create([

@@ -1,8 +1,9 @@
-import { Prop, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Categories } from './categories.schema';
 import { Brands } from './brands.schema';
 import mongoose from 'mongoose';
 
+@Schema()
 export class Products {
   @Prop({ required: true, ref: Categories.name })
   category: mongoose.Schema.Types.ObjectId;
