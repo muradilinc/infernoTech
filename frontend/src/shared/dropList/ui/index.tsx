@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { selectCategories } from '../../../features/categories/categoriesSlice';
 import { getAllCategory } from '../../../features/categories/categoriesThunk';
