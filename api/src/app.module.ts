@@ -9,7 +9,7 @@ import { BASE_URL } from './constants';
 import { Categories, CategoriesSchema } from './schemas/categories.schema';
 import { Brands, BrandsSchema } from './schemas/brands.schema';
 import { Products, ProductsSchema } from './schemas/products.schema';
-// import { DataService } from './data/data.service';
+import { DataService } from './data/data.service';
 
 @Module({
   imports: [
@@ -26,6 +26,6 @@ import { Products, ProductsSchema } from './schemas/products.schema';
     BrandsController,
     ProductsController,
   ],
-  providers: [AppService],
+  providers: [AppService, DataService],
 })
 export class AppModule {}
