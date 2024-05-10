@@ -1,4 +1,5 @@
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
+import { DropList } from '../../../shared/dropList';
 
 export const Header = () => {
   return (
@@ -6,7 +7,7 @@ export const Header = () => {
       <Navbar fluid rounded>
         <Navbar.Brand href="https://flowbite-react.com">
           <img
-            src="/favicon.svg"
+            src="https://ih1.redbubble.net/image.1077841281.8885/bg,f8f8f8-flat,750x,075,f-pad,750x1000,f8f8f8.jpg"
             className="mr-3 h-6 sm:h-9"
             alt="Flowbite React Logo"
           />
@@ -41,10 +42,10 @@ export const Header = () => {
           <Navbar.Toggle />
         </div>
         <Navbar.Collapse>
-          <Navbar.Link href="#" active>
+          <Navbar.Link href="/" active>
             Home
           </Navbar.Link>
-          <Dropdown label={<Navbar>About</Navbar>}></Dropdown>
+          <DropList />
           <Navbar.Link href="#">Services</Navbar.Link>
           <Navbar.Link href="#">Pricing</Navbar.Link>
           <Navbar.Link href="#">Contact</Navbar.Link>

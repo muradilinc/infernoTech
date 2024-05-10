@@ -19,9 +19,8 @@ export const DropList: React.FC = () => {
     dispatch(getAllCategory());
   }, [dispatch]);
 
-  console.log(categories);
   return (
-    <Dropdown label="Dropdown button">
+    <Dropdown label="Catalog" inline>
       {categories.map((category) => (
         <Dropdown.Item key={category._id}>{category.title}</Dropdown.Item>
       ))}
