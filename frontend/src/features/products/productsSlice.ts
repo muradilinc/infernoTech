@@ -3,6 +3,7 @@ import { getProductAll } from './productsThunk';
 import { RootState } from '../../app/store/store';
 
 export interface Product {
+  _id: string;
   category: string;
   brand: string;
   name: string;
