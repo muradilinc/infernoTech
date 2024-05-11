@@ -5,7 +5,7 @@ export const Header = () => {
   return (
     <div className="container mx-auto">
       <Navbar fluid rounded>
-        <Navbar.Brand href="https://flowbite-react.com">
+        <Navbar.Brand href="/">
           <img
             src="https://ih1.redbubble.net/image.1077841281.8885/bg,f8f8f8-flat,750x,075,f-pad,750x1000,f8f8f8.jpg"
             className="mr-3 h-6 sm:h-9"

@@ -25,4 +25,4 @@ export class Products {
 }
 
 export const ProductsSchema = SchemaFactory.createForClass(Products);
-export type ProductsDocument = Categories & Document;
+export type ProductsDocument = Products & Document;

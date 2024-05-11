@@ -39,18 +39,18 @@ export class DataService {
       await this.dropCollection(db, collectionName);
     }
 
-    const [_category1, category2] = await this.categoriesModel.create([
+    const [category1, category2] = await this.categoriesModel.create([
       {
-        title: 'CPU',
+        title: 'Проссецоры',
         image: 'fixtures/cpus.webp',
       },
       {
-        title: 'GPU',
+        title: 'Видеокарты',
         image: 'fixtures/gpus.jpg',
       },
     ]);
 
-    const [brand1, brand2] = await this.brandsModel.create([
+    const [brand1, brand2, _brand3, brand4] = await this.brandsModel.create([
       {
         name: 'nvidia',
         logo: 'fixtures/nvidiaLogo.png',
@@ -58,6 +58,26 @@ export class DataService {
       {
         name: 'amd',
         logo: 'fixtures/amdRadeonLogo.png',
+      },
+      {
+        name: 'msi',
+        logo: 'fixtures/msi.jpg',
+      },
+      {
+        name: 'intel',
+        logo: 'fixtures/intel.jpg',
+      },
+      {
+        name: 'gigabyte',
+        logo: 'fixtures/gigabyte.jpg',
+      },
+      {
+        name: 'palit',
+        logo: 'fixtures/palit.svg',
+      },
+      {
+        name: 'samsung',
+        logo: 'fixtures/samsung.png',
       },
     ]);
 
@@ -72,11 +92,27 @@ export class DataService {
       },
       {
         category: category2._id,
+        brand: brand1._id,
+        name: 'Nvidia Geforce RTX 4060',
+        price: 550,
+        description: 'That is gpu cool!',
+        image: 'fixtures/msinvidia4060.png',
+      },
+      {
+        category: category2._id,
         brand: brand2._id,
         name: 'AMD Radeon RX 6600',
         price: 400,
         description: 'That is amd gpu cool!',
         image: 'fixtures/rx6600.jpg',
+      },
+      {
+        category: category1._id,
+        brand: brand4._id,
+        name: 'Intel Core 5',
+        price: 350,
+        description: 'CPU desc',
+        image: 'fixtures/intel5.png',
       },
     ]);
 

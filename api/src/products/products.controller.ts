@@ -68,7 +68,18 @@ export class ProductsController {
 
   @Get()
   getAll() {
-    return this.productsModel.find();
+    return this.productsModel.find().populate('brand');
+  }
+
+  @Get(':id')
+  async getProductByCategory(@Param('id') id: string) {
+    const categories = await this.productsModel.find({ category: id });
+    const brands = await this.productsModel.find({ brand: id });
+    if (categories.length === 0) {
+      return brands;
+    } else {
+      return categories;
+    }
   }
 
   @Delete(':id')

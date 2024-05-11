@@ -18,12 +18,18 @@ import { CreateBrandDto } from './create-brand.dto';
 import mongoose, { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Brands, BrandsDocument } from '../schemas/brands.schema';
+import { Categories, CategoriesDocument } from '../schemas/categories.schema';
+import { Products, ProductsDocument } from '../schemas/products.schema';
 
 @Controller('brands')
 export class BrandsController {
   constructor(
     @InjectModel(Brands.name)
     private brandsModel: Model<BrandsDocument>,
+    @InjectModel(Categories.name)
+    private categoriesModel: Model<CategoriesDocument>,
+    @InjectModel(Products.name)
+    private productsModel: Model<ProductsDocument>,
   ) {}
 
   @Post()
@@ -65,6 +71,18 @@ export class BrandsController {
   @Get()
   getBrands() {
     return this.brandsModel.find();
+  }
+
+  @Get(':id')
+  async getSingleBrands(@Param('id') id: string) {
+    const brand = await this.brandsModel.findById(id);
+    const productCategory = await this.productsModel.find({ brand: id });
+    const categoryIds = productCategory.map((product) => product.category);
+    const categories = await this.categoriesModel.find({
+      _id: { $in: categoryIds },
+    });
+
+    return { ...brand?.toObject(), categories };
   }
 
   @Delete(':id')

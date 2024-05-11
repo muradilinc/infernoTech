@@ -15,8 +15,8 @@ import { DataService } from './data/data.service';
   imports: [
     MongooseModule.forRoot(BASE_URL),
     MongooseModule.forFeature([
-      { name: Categories.name, schema: CategoriesSchema },
       { name: Brands.name, schema: BrandsSchema },
+      { name: Categories.name, schema: CategoriesSchema },
       { name: Products.name, schema: ProductsSchema },
     ]),
   ],

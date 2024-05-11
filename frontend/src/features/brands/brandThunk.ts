@@ -9,3 +9,11 @@ export const getBrandAll = createAsyncThunk<Brand[]>(
     return response.data;
   },
 );
+
+export const getBrandSingle = createAsyncThunk<Brand, string>(
+  'brand/getSingle',
+  async (id) => {
+    const response = await axiosApi.get<Brand>(`/brands/${id}`);
+    return response.data;
+  },
+);
