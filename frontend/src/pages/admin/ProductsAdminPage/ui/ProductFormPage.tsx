@@ -7,7 +7,7 @@ import {
   Textarea,
   TextInput,
 } from 'flowbite-react';
-import { ProductMutation } from '../model/types';
+import { CharacteristicDetail, ProductMutation } from '../model/types';
 import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
 import { selectCategories } from '../../../../features/categories/categoriesSlice';
 import { selectBrands } from '../../../../features/brands/brandSlice';
@@ -27,15 +27,13 @@ const ProductFormPage = () => {
   });
   const [characteristic, setCharacteristic] = useState('');
   const [characteristics, setCharacteristics] = useState<
-    { name: string; value: string }[]
+    CharacteristicDetail[]
   >([]);
-  const [characteristicsValue, setCharacteristicsValue] = useState<{
-    name: string;
-    value: string;
-  }>({
-    name: '',
-    value: '',
-  });
+  const [characteristicsValue, setCharacteristicsValue] =
+    useState<CharacteristicDetail>({
+      name: '',
+      value: '',
+    });
   const imageSelect = useRef<HTMLInputElement>(null);
   const [filename, setFilename] = useState('');
   const [imageData, setImageData] = useState('');

@@ -4,9 +4,16 @@ export interface ProductMutation {
   description: string;
   category: string;
   brand: string;
-  characteristics: {
-    title: string;
-    characteristic: { name: string; value: string }[];
-  }[];
+  characteristics: Characteristics[];
   image: File | null;
+}
+
+export interface Characteristics {
+  title: string;
+  characteristic: CharacteristicDetail[];
+}
+
+export interface CharacteristicDetail {
+  name: string;
+  value: string;
 }
