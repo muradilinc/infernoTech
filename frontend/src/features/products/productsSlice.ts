@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getProductAll } from './productsThunk';
+import { getProductAll, getProductSingle } from './productsThunk';
 import { RootState } from '../../app/store/store';
 
 interface Characteristic {
@@ -24,11 +24,13 @@ export interface Product {
 }
 
 interface ProductsState {
+  product: Product | null;
   products: Product[];
   productsLoading: boolean;
 }
 
 const initialState: ProductsState = {
+  product: null,
   products: [],
   productsLoading: false,
 };
@@ -48,8 +50,22 @@ const productsSlice = createSlice({
     builder.addCase(getProductAll.rejected, (state) => {
       state.productsLoading = false;
     });
+    builder.addCase(getProductSingle.pending, (state) => {
+      state.productsLoading = true;
+    });
+    builder.addCase(
+      getProductSingle.fulfilled,
+      (state, { payload: product }) => {
+        state.productsLoading = false;
+        state.product = product;
+      },
+    );
+    builder.addCase(getProductSingle.rejected, (state) => {
+      state.productsLoading = false;
+    });
   },
 });
 
 export const productsReducer = productsSlice.reducer;
 export const selectProducts = (state: RootState) => state.products.products;
+export const selectProduct = (state: RootState) => state.products.product;

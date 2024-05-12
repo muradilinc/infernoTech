@@ -11,3 +11,11 @@ export const getProductAll = createAsyncThunk<Product[], string | undefined>(
     return response.data;
   },
 );
+
+export const getProductSingle = createAsyncThunk<Product, string>(
+  'products/getSingle',
+  async (id) => {
+    const response = await axiosApi.get(`/products/${id}`);
+    return response.data;
+  },
+);

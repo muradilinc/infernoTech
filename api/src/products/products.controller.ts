@@ -72,13 +72,17 @@ export class ProductsController {
   }
 
   @Get(':id')
-  async getProductByCategory(@Param('id') id: string) {
+  async getProductByFilter(@Param('id') id: string) {
     const categories = await this.productsModel.find({ category: id });
     const brands = await this.productsModel.find({ brand: id });
-    if (categories.length === 0) {
-      return brands;
-    } else {
+    if (categories.length !== 0) {
       return categories;
+    }
+    if (brands.length !== 0) {
+      return brands;
+    }
+    if (categories.length === 0 && brands.length === 0) {
+      return this.productsModel.findById(id);
     }
   }
 
