@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getProductAll, getProductSingle } from './productsThunk';
 import { RootState } from '../../app/store/store';
+import { Brand } from '../brands/brandSlice';
+import { Category } from '../categories/categoriesSlice';
 
 interface Characteristic {
   title: string;
@@ -14,8 +16,8 @@ interface Characteristic {
 
 export interface Product {
   _id: string;
-  category: string;
-  brand: string;
+  category: Category;
+  brand: Brand;
   name: string;
   price: string;
   description: string;

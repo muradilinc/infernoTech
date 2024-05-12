@@ -54,6 +54,7 @@ export class ProductsController {
         price: parseInt(createProduct.price),
         description: createProduct.description,
         image: file ? '/uploads/images/' + file.filename : null,
+        characteristics: JSON.parse(createProduct.characteristics),
       });
       await product.save();
       return product;
@@ -68,7 +69,7 @@ export class ProductsController {
 
   @Get()
   getAll() {
-    return this.productsModel.find().populate('brand');
+    return this.productsModel.find().populate('brand category');
   }
 
   @Get(':id')

@@ -4,4 +4,5 @@ export class CreateProductsDto {
   name: string;
   price: string;
   description: string;
+  characteristics: string;
 }

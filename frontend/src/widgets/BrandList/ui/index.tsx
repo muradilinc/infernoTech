@@ -72,7 +72,7 @@ export const BrandList = () => {
       <div className="slider-container">
         <Slider {...settings}>
           {brands.map((brand) => (
-            <Link to={brand._id}>
+            <Link to={`/brands/${brand._id}`}>
               <img
                 className="mx-[15px] max-h-[120px]"
                 src={API_LINK + '/' + brand.logo}
