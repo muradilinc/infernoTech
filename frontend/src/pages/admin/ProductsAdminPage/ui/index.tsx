@@ -2,7 +2,10 @@ import { Avatar, Button, Table } from 'flowbite-react';
 import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
 import { selectProducts } from '../../../../features/products/productsSlice';
 import { useEffect } from 'react';
-import { getProductAll } from '../../../../features/products/productsThunk';
+import {
+  deleteProduct,
+  getProductAll,
+} from '../../../../features/products/productsThunk';
 import { API_LINK } from '../../../../app/constants';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,6 +17,11 @@ export const ProductTable = () => {
   useEffect(() => {
     dispatch(getProductAll());
   }, [dispatch]);
+
+  const deleteProductHandle = async (id: string) => {
+    await dispatch(deleteProduct(id)).unwrap();
+    await dispatch(getProductAll());
+  };
 
   return (
     <div className="flex flex-col w-full gap-y-3 my-[30px]">
@@ -60,12 +68,13 @@ export const ProductTable = () => {
                   </a>
                 </Table.Cell>
                 <Table.Cell>
-                  <a
-                    href="#"
+                  <button
+                    type="button"
+                    onClick={() => deleteProductHandle(product._id)}
                     className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
                   >
                     Delete
-                  </a>
+                  </button>
                 </Table.Cell>
               </Table.Row>
             ))}

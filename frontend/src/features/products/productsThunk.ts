@@ -44,3 +44,10 @@ export const getProductSingle = createAsyncThunk<Product, string>(
     return response.data;
   },
 );
+
+export const deleteProduct = createAsyncThunk<void, string>(
+  'products/delete',
+  async (id) => {
+    await axiosApi.delete(`/products/${id}`);
+  },
+);
