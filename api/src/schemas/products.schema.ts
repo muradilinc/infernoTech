@@ -22,6 +22,19 @@ export class Products {
 
   @Prop({ required: true })
   image: string;
+
+  @Prop({ required: true })
+  characteristics: [
+    {
+      title: string;
+      characteristic: [
+        {
+          name: string;
+          value: string;
+        },
+      ];
+    },
+  ];
 }
 
 export const ProductsSchema = SchemaFactory.createForClass(Products);

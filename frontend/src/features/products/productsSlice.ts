@@ -2,6 +2,16 @@ import { createSlice } from '@reduxjs/toolkit';
 import { getProductAll } from './productsThunk';
 import { RootState } from '../../app/store/store';
 
+interface Characteristic {
+  title: string;
+  characteristic: [
+    {
+      name: string;
+      value: string;
+    },
+  ];
+}
+
 export interface Product {
   _id: string;
   category: string;
@@ -10,6 +20,7 @@ export interface Product {
   price: string;
   description: string;
   image: string;
+  characteristics: Characteristic[];
 }
 
 interface ProductsState {

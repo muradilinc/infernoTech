@@ -89,6 +89,17 @@ export class DataService {
         price: 450,
         description: 'That is gpu cool!',
         image: 'fixtures/rtx4060.jpg',
+        characteristics: [
+          {
+            title: 'Технические характеристики',
+            characteristic: [
+              {
+                name: 'Объём памяти',
+                value: '8192',
+              },
+            ],
+          },
+        ],
       },
       {
         category: category2._id,
@@ -97,6 +108,17 @@ export class DataService {
         price: 550,
         description: 'That is gpu cool!',
         image: 'fixtures/msinvidia4060.png',
+        characteristics: [
+          {
+            title: 'Технические характеристики',
+            characteristic: [
+              {
+                name: 'Объём памяти',
+                value: '8192',
+              },
+            ],
+          },
+        ],
       },
       {
         category: category2._id,
@@ -105,6 +127,17 @@ export class DataService {
         price: 400,
         description: 'That is amd gpu cool!',
         image: 'fixtures/rx6600.jpg',
+        characteristics: [
+          {
+            title: 'Технические характеристики',
+            characteristic: [
+              {
+                name: 'Объём памяти',
+                value: '8192',
+              },
+            ],
+          },
+        ],
       },
       {
         category: category1._id,
@@ -113,6 +146,17 @@ export class DataService {
         price: 350,
         description: 'CPU desc',
         image: 'fixtures/intel5.png',
+        characteristics: [
+          {
+            title: 'Технические характеристики',
+            characteristic: [
+              {
+                name: 'Линейка',
+                value: 'Intel Core 5',
+              },
+            ],
+          },
+        ],
       },
     ]);
 
