@@ -15,7 +15,7 @@ import { getBrandAll } from '../../../../features/brands/brandThunk';
 import { getAllCategory } from '../../../../features/categories/categoriesThunk';
 import { createProduct } from '../../../../features/products/productsThunk';
 
-const ProductFormPage = () => {
+export const ProductFormPage = () => {
   const [product, setProduct] = useState<ProductMutation>({
     name: '',
     description: '',
@@ -372,5 +372,3 @@ const ProductFormPage = () => {
     </form>
   );
 };
-
-export default ProductFormPage;

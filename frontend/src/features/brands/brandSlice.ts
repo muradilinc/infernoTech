@@ -8,6 +8,7 @@ export interface Brand {
   name: string;
   logo: string;
   categories: Category[];
+  productLength: number;
 }
 
 interface BrandState {

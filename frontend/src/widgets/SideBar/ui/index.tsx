@@ -18,8 +18,8 @@ export const AdminSideBar = () => {
           <Sidebar.Item href="#" icon={HiChartPie}>
             Dashboard
           </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiViewBoards}>
-            Kanban
+          <Sidebar.Item href="/admin/brands" icon={HiViewBoards}>
+            Brands
           </Sidebar.Item>
           <Sidebar.Item href="#" icon={HiInbox}>
             Inbox

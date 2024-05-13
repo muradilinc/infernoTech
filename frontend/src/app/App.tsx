@@ -8,7 +8,8 @@ import { SingleProductPage } from '../pages/client/SingleProductpage';
 import { AdminHomePage } from '../pages/admin/HomePage';
 import AdminLayout from './layout/adminLayout';
 import { ProductTable } from '../pages/admin/ProductsAdminPage';
-import ProductFormPage from '../pages/admin/ProductsAdminPage/ui/ProductFormPage';
+import { ProductFormPage } from '../pages/admin/ProductsAdminPage';
+import { BrandFormPage, BrandsTable } from '../pages/admin/BrandsAdminPage';
 
 const App = () => {
   const { pathname } = useLocation() as { pathname: string };
@@ -21,6 +22,8 @@ const App = () => {
             <Route path="/" element={<AdminHomePage />} />
             <Route path="/products" element={<ProductTable />} />
             <Route path="/products-submit" element={<ProductFormPage />} />
+            <Route path="/brands" element={<BrandsTable />} />
+            <Route path="/brands-submit" element={<BrandFormPage />} />
           </Routes>
         </AdminLayout>
       ),

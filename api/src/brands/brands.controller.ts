@@ -69,8 +69,18 @@ export class BrandsController {
   }
 
   @Get()
-  getBrands() {
-    return this.brandsModel.find();
+  async getBrands() {
+    const brands = await this.brandsModel.find();
+
+    return await Promise.all(
+      brands.map(async (brand) => {
+        const products = await this.productsModel.find({ brand: brand._id });
+        return {
+          ...brand?.toObject(),
+          productLength: products.length,
+        };
+      }),
+    );
   }
 
   @Get(':id')

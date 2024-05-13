@@ -1,72 +1,63 @@
-import { Avatar, Button, Table } from 'flowbite-react';
-import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
-import { selectProducts } from '../../../../features/products/productsSlice';
 import { useEffect } from 'react';
-import {
-  deleteProduct,
-  getProductAll,
-} from '../../../../features/products/productsThunk';
-import { API_LINK } from '../../../../app/constants';
+import { Avatar, Button, Table } from 'flowbite-react';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
+import { selectBrands } from '../../../../features/brands/brandSlice';
+import {
+  deleteBrand,
+  getBrandAll,
+} from '../../../../features/brands/brandThunk';
+import { API_LINK } from '../../../../app/constants';
 
-export const ProductTable = () => {
-  const products = useAppSelector(selectProducts);
-  const dispatch = useAppDispatch();
+export const BrandsTable = () => {
   const navigate = useNavigate();
+  const brands = useAppSelector(selectBrands);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getProductAll());
+    dispatch(getBrandAll());
   }, [dispatch]);
 
-  const deleteProductHandle = async (id: string) => {
-    await dispatch(deleteProduct(id)).unwrap();
-    await dispatch(getProductAll());
+  const deleteBrandHandle = async (id: string) => {
+    await dispatch(deleteBrand(id)).unwrap();
+    await dispatch(getBrandAll());
   };
 
   return (
     <div className="flex flex-col w-full gap-y-3 my-[30px]">
       <div className="flex justify-end">
         <Button
-          onClick={() => navigate('/admin/products-submit')}
+          onClick={() => navigate('/admin/brands-submit')}
           gradientDuoTone="purpleToPink"
         >
           Create
         </Button>
       </div>
-      <div className="overflow-x-auto w-full">
+      <div className="overflow-x-auto">
         <Table striped>
           <Table.Head>
-            <Table.HeadCell>Product name</Table.HeadCell>
-            <Table.HeadCell>Brand</Table.HeadCell>
-            <Table.HeadCell>Category</Table.HeadCell>
-            <Table.HeadCell>Price</Table.HeadCell>
+            <Table.HeadCell>Brand name</Table.HeadCell>
+            <Table.HeadCell>Logo</Table.HeadCell>
+            <Table.HeadCell>Items</Table.HeadCell>
             <Table.HeadCell>
               <span className="sr-only">Edit</span>
             </Table.HeadCell>
           </Table.Head>
           <Table.Body className="divide-y">
-            {products.map((product) => (
+            {brands.map((brand) => (
               <Table.Row
-                key={product._id}
+                key={brand._id}
                 className="bg-white dark:border-gray-700 dark:bg-gray-800"
               >
                 <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                  {product.name}
-                </Table.Cell>
-                <Table.Cell className="flex gap-x-3 items-center">
-                  {product.brand ? (
-                    <>
-                      <Avatar img={API_LINK + '/' + product.brand.logo} />
-                      {product.brand.name}
-                    </>
-                  ) : (
-                    <p>no brand!</p>
-                  )}
+                  {brand.name.toUpperCase()}
                 </Table.Cell>
                 <Table.Cell>
-                  {product.category ? product.category.title : 'no category!'}
+                  <div className="flex justify-start">
+                    <Avatar img={API_LINK + '/' + brand.logo} size="md" />
+                  </div>
                 </Table.Cell>
-                <Table.Cell>${product.price}</Table.Cell>
+                <Table.Cell>{brand.productLength}</Table.Cell>
                 <Table.Cell>
                   <a
                     href="#"
@@ -78,7 +69,7 @@ export const ProductTable = () => {
                 <Table.Cell>
                   <button
                     type="button"
-                    onClick={() => deleteProductHandle(product._id)}
+                    onClick={() => deleteBrandHandle(brand._id)}
                     className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
                   >
                     Delete
