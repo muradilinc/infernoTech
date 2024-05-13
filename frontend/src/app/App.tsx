@@ -10,6 +10,7 @@ import AdminLayout from './layout/adminLayout';
 import { ProductTable } from '../pages/admin/ProductsAdminPage';
 import { ProductFormPage } from '../pages/admin/ProductsAdminPage';
 import { BrandFormPage, BrandsTable } from '../pages/admin/BrandsAdminPage';
+import { CategoriesTable } from '../pages/admin/CategoriesAdminPage';
 
 const App = () => {
   const { pathname } = useLocation() as { pathname: string };
@@ -24,6 +25,7 @@ const App = () => {
             <Route path="/products-submit" element={<ProductFormPage />} />
             <Route path="/brands" element={<BrandsTable />} />
             <Route path="/brands-submit" element={<BrandFormPage />} />
+            <Route path="/categories" element={<CategoriesTable />} />
           </Routes>
         </AdminLayout>
       ),

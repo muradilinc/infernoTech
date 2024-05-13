@@ -6,6 +6,7 @@ export interface Category {
   _id: string;
   title: string;
   image: string;
+  productLength: number;
 }
 
 interface CategoriesState {

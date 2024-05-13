@@ -21,7 +21,7 @@ export const AdminSideBar = () => {
           <Sidebar.Item href="/admin/brands" icon={HiViewBoards}>
             Brands
           </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiInbox}>
+          <Sidebar.Item href="/admin/categories" icon={HiInbox}>
             Inbox
           </Sidebar.Item>
           <Sidebar.Item href="#" icon={HiUser}>

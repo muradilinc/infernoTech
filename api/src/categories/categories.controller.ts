@@ -18,12 +18,15 @@ import express from 'express';
 import { CreateCategoryDto } from './create-category.dto';
 import { randomUUID } from 'crypto';
 import { extname } from 'path';
+import { Products, ProductsDocument } from '../schemas/products.schema';
 
 @Controller('categories')
 export class CategoriesController {
   constructor(
     @InjectModel(Categories.name)
     private categoriesModel: Model<CategoriesDocument>,
+    @InjectModel(Products.name)
+    private productsModel: Model<ProductsDocument>,
   ) {}
 
   @Post()
@@ -64,7 +67,18 @@ export class CategoriesController {
 
   @Get()
   async getCategories() {
-    return this.categoriesModel.find();
+    const categories = await this.categoriesModel.find();
+    return await Promise.all(
+      categories.map(async (category) => {
+        const products = await this.productsModel.find({
+          category: category._id,
+        });
+        return {
+          ...category?.toObject(),
+          productLength: products.length,
+        };
+      }),
+    );
   }
 
   @Delete(':id')
