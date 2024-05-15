@@ -14,6 +14,8 @@ import {
   CategoriesTable,
   CategoryFormPage,
 } from '../pages/admin/CategoriesAdminPage';
+import { CategoriesSinglePage } from '../pages/client/CategoriesSinglePage';
+import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
 
 const App = () => {
   const { pathname } = useLocation() as { pathname: string };
@@ -36,6 +38,7 @@ const App = () => {
               path="/categories-submit/:id"
               element={<CategoryFormPage />}
             />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </AdminLayout>
       ),
@@ -52,8 +55,10 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/brands/:id" element={<SingleBrandPage />} />
             <Route path="/category" element={<CategoriesPage />} />
+            <Route path="/category/:id" element={<CategoriesSinglePage />} />
             <Route path="/products/:brand" element={<ProductsPage />} />
             <Route path="/product/:id" element={<SingleProductPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Layout>
       )}

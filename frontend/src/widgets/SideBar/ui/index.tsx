@@ -33,7 +33,7 @@ export const AdminSideBar = () => {
           <Sidebar.Item href="#" icon={HiArrowSmRight}>
             Sign In
           </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiTable}>
+          <Sidebar.Item href="/" icon={HiTable}>
             Sign Up
           </Sidebar.Item>
         </Sidebar.ItemGroup>

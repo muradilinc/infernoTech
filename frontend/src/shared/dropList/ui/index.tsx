@@ -4,12 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { selectCategories } from '../../../features/categories/categoriesSlice';
 import { getAllCategory } from '../../../features/categories/categoriesThunk';
 import { Dropdown } from 'flowbite-react';
-
-// import { Category } from '../../../features/categories/categoriesSlice';
-
-// interface Props<T> {
-//   data: T[];
-// }
+import { Link } from 'react-router-dom';
 
 export const DropList: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -22,7 +17,9 @@ export const DropList: React.FC = () => {
   return (
     <Dropdown label="Catalog" inline>
       {categories.map((category) => (
-        <Dropdown.Item key={category._id}>{category.title}</Dropdown.Item>
+        <Dropdown.Item key={category._id}>
+          <Link to={`/category/${category._id}`}>{category.title}</Link>
+        </Dropdown.Item>
       ))}
     </Dropdown>
   );

@@ -16,6 +16,10 @@ export const ProductList: React.FC<Props> = ({ data }) => {
     dispatch(getProductAll(data));
   }, [data, dispatch]);
 
+  if (products.length === 0) {
+    return 'No items';
+  }
+
   return (
     <div className="flex gap-y-3 flex-col my-[25px]">
       <h4 className="text-4xl font-bold dark:text-white">В наличии</h4>
