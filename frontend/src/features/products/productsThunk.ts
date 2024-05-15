@@ -45,6 +45,28 @@ export const getProductSingle = createAsyncThunk<Product, string>(
   },
 );
 
+interface UpdateProduct {
+  id: string;
+  product: ProductMutation;
+}
+
+export const updateProduct = createAsyncThunk<void, UpdateProduct>(
+  'products/update',
+  async ({ id, product }) => {
+    const formData = new FormData();
+    formData.append('name', product.name);
+    formData.append('price', product.price);
+    formData.append('description', product.description);
+    formData.append('category', product.category);
+    formData.append('brand', product.brand);
+    if (product.image) {
+      formData.append('image', product.image);
+    }
+    formData.append('characteristics', JSON.stringify(product.characteristics));
+    await axiosApi.patch(`/products/${id}`, formData);
+  },
+);
+
 export const deleteProduct = createAsyncThunk<void, string>(
   'products/delete',
   async (id) => {

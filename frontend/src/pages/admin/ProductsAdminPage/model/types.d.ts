@@ -5,7 +5,7 @@ export interface ProductMutation {
   category: string;
   brand: string;
   characteristics: Characteristics[];
-  image: File | null;
+  image: File | null | string;
 }
 
 export interface Characteristics {

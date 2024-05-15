@@ -13,7 +13,13 @@ import { selectCategories } from '../../../../features/categories/categoriesSlic
 import { selectBrands } from '../../../../features/brands/brandSlice';
 import { getBrandAll } from '../../../../features/brands/brandThunk';
 import { getAllCategory } from '../../../../features/categories/categoriesThunk';
-import { createProduct } from '../../../../features/products/productsThunk';
+import {
+  createProduct,
+  getProductSingle,
+  updateProduct,
+} from '../../../../features/products/productsThunk';
+import { useNavigate, useParams } from 'react-router-dom';
+import { selectProduct } from '../../../../features/products/productsSlice';
 
 export const ProductFormPage = () => {
   const [product, setProduct] = useState<ProductMutation>({
@@ -40,11 +46,35 @@ export const ProductFormPage = () => {
   const categories = useAppSelector(selectCategories);
   const brands = useAppSelector(selectBrands);
   const dispatch = useAppDispatch();
+  const { id } = useParams() as { id: string };
+  const productApi = useAppSelector(selectProduct);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getBrandAll());
     dispatch(getAllCategory());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(getProductSingle(id));
+    }
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    if (id && productApi) {
+      setProduct((prevState) => ({
+        ...prevState,
+        ...productApi,
+        category: productApi.category._id,
+        brand: productApi.brand._id,
+      }));
+      setFilename(productApi.image);
+      setImageData('http://localhost:3000/' + productApi.image);
+    }
+  }, [id, productApi]);
+
+  console.log(product);
 
   const changeField = (
     event: ChangeEvent<
@@ -111,20 +141,29 @@ export const ProductFormPage = () => {
 
   const createProductHandle = async (event: FormEvent) => {
     event.preventDefault();
-    await dispatch(createProduct(product)).unwrap();
-    setProduct({
-      name: '',
-      description: '',
-      price: '',
-      image: null,
-      category: '',
-      brand: '',
-      characteristics: [],
-    });
-    setFilename('');
-    setImageData('');
-    if (imageSelect.current) {
-      imageSelect.current.value = '';
+    try {
+      if (id) {
+        await dispatch(updateProduct({ id, product })).unwrap();
+      } else {
+        await dispatch(createProduct(product)).unwrap();
+      }
+      setProduct({
+        name: '',
+        description: '',
+        price: '',
+        image: null,
+        category: '',
+        brand: '',
+        characteristics: [],
+      });
+      setFilename('');
+      setImageData('');
+      if (imageSelect.current) {
+        imageSelect.current.value = '';
+      }
+      navigate(-1);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -169,7 +208,9 @@ export const ProductFormPage = () => {
           >
             <option></option>
             {categories.map((category) => (
-              <option value={category._id}>{category.title}</option>
+              <option key={category._id} value={category._id}>
+                {category.title}
+              </option>
             ))}
           </Select>
         </div>
@@ -186,7 +227,7 @@ export const ProductFormPage = () => {
           >
             <option></option>
             {brands.map((brand) => (
-              <option value={brand._id} className="uppercase">
+              <option key={brand._id} value={brand._id} className="uppercase">
                 {brand.name}
               </option>
             ))}
@@ -213,15 +254,15 @@ export const ProductFormPage = () => {
         />
       </div>
       <div className="flex flex-col gap-y-3">
-        {product.characteristics.map((char) => (
-          <>
+        {product.characteristics.map((char, index) => (
+          <div key={index}>
             <h4>{char.title}</h4>
-            {char.characteristic.map((item) => (
-              <p>
+            {char.characteristic.map((item, index) => (
+              <p key={index}>
                 {item.name} - {item.value}
               </p>
             ))}
-          </>
+          </div>
         ))}
         <div className="mb-2 block">
           <Label htmlFor="username3" color="success" value="Char" />
@@ -241,8 +282,8 @@ export const ProductFormPage = () => {
           // }
         />
         <div className="flex w-full gap-x-3 flex-col">
-          {characteristics.map((char) => (
-            <p>
+          {characteristics.map((char, index) => (
+            <p key={index}>
               {char.name} - {char.value}
             </p>
           ))}
@@ -302,6 +343,7 @@ export const ProductFormPage = () => {
         <Textarea
           id="comment"
           name="description"
+          value={product.description}
           onChange={changeField}
           placeholder="Leave a comment..."
           required
@@ -367,7 +409,7 @@ export const ProductFormPage = () => {
         className="uppercase"
         gradientDuoTone="purpleToBlue"
       >
-        create
+        {id ? 'update' : 'create'}
       </Button>
     </form>
   );

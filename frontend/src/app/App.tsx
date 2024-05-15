@@ -23,8 +23,10 @@ const App = () => {
             <Route path="/" element={<AdminHomePage />} />
             <Route path="/products" element={<ProductTable />} />
             <Route path="/products-submit" element={<ProductFormPage />} />
+            <Route path="/products-submit/:id" element={<ProductFormPage />} />
             <Route path="/brands" element={<BrandsTable />} />
             <Route path="/brands-submit" element={<BrandFormPage />} />
+            <Route path="/brands-submit/:id" element={<BrandFormPage />} />
             <Route path="/categories" element={<CategoriesTable />} />
           </Routes>
         </AdminLayout>

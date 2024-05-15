@@ -7,7 +7,7 @@ import {
   getProductAll,
 } from '../../../../features/products/productsThunk';
 import { API_LINK } from '../../../../app/constants';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const ProductTable = () => {
   const products = useAppSelector(selectProducts);
@@ -68,12 +68,12 @@ export const ProductTable = () => {
                 </Table.Cell>
                 <Table.Cell>${product.price}</Table.Cell>
                 <Table.Cell>
-                  <a
-                    href="#"
+                  <Link
+                    to={`/admin/products-submit/${product._id}`}
                     className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
                   >
                     Edit
-                  </a>
+                  </Link>
                 </Table.Cell>
                 <Table.Cell>
                   <button
