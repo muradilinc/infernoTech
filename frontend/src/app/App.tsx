@@ -10,7 +10,10 @@ import AdminLayout from './layout/adminLayout';
 import { ProductTable } from '../pages/admin/ProductsAdminPage';
 import { ProductFormPage } from '../pages/admin/ProductsAdminPage';
 import { BrandFormPage, BrandsTable } from '../pages/admin/BrandsAdminPage';
-import { CategoriesTable } from '../pages/admin/CategoriesAdminPage';
+import {
+  CategoriesTable,
+  CategoryFormPage,
+} from '../pages/admin/CategoriesAdminPage';
 
 const App = () => {
   const { pathname } = useLocation() as { pathname: string };
@@ -28,6 +31,11 @@ const App = () => {
             <Route path="/brands-submit" element={<BrandFormPage />} />
             <Route path="/brands-submit/:id" element={<BrandFormPage />} />
             <Route path="/categories" element={<CategoriesTable />} />
+            <Route path="/categories-submit" element={<CategoryFormPage />} />
+            <Route
+              path="/categories-submit/:id"
+              element={<CategoryFormPage />}
+            />
           </Routes>
         </AdminLayout>
       ),

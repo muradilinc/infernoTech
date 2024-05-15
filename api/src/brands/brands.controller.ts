@@ -123,6 +123,7 @@ export class BrandsController {
         ...updateBrand,
         logo: file ? '/uploads/images/' + file.filename : null,
       },
+      { new: true },
     );
   }
 

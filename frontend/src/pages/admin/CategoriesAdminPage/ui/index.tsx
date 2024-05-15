@@ -6,7 +6,7 @@ import {
   getAllCategory,
 } from '../../../../features/categories/categoriesThunk';
 import { Avatar, Button, Table } from 'flowbite-react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { API_LINK } from '../../../../app/constants';
 
 export const CategoriesTable = () => {
@@ -56,12 +56,12 @@ export const CategoriesTable = () => {
                 </Table.Cell>
                 <Table.Cell>{category.productLength}</Table.Cell>
                 <Table.Cell>
-                  <a
-                    href="#"
+                  <Link
+                    to={`/admin/categories-submit/${category._id}`}
                     className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
                   >
                     Edit
-                  </a>
+                  </Link>
                 </Table.Cell>
                 <Table.Cell>
                   <button

@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   UnprocessableEntityException,
   UploadedFile,
@@ -78,6 +79,42 @@ export class CategoriesController {
           productLength: products.length,
         };
       }),
+    );
+  }
+
+  @Get(':id')
+  async getCategory(@Param('id') id: string) {
+    return this.categoriesModel.findById(id);
+  }
+
+  @Patch(':id')
+  @UseInterceptors(
+    FileInterceptor('image', {
+      storage: diskStorage({
+        destination: './public/uploads/images',
+        filename(
+          _req: express.Request,
+          file: Express.Multer.File,
+          callback: (error: Error | null, filename: string) => void,
+        ) {
+          const filename = randomUUID();
+          callback(null, filename + '' + extname(file.originalname));
+        },
+      }),
+    }),
+  )
+  updateCategory(
+    @UploadedFile() file: Express.Multer.File,
+    @Param('id') id: string,
+    @Body() updateCategory: CreateCategoryDto,
+  ) {
+    return this.categoriesModel.findOneAndUpdate(
+      { _id: id },
+      {
+        ...updateCategory,
+        image: file ? '/uploads/images/' + file.filename : null,
+      },
+      { new: true },
     );
   }
 
