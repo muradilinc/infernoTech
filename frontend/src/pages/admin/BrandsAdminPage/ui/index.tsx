@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Avatar, Button, Table } from 'flowbite-react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
 import { selectBrands } from '../../../../features/brands/brandSlice';
 import {
@@ -59,12 +59,12 @@ export const BrandsTable = () => {
                 </Table.Cell>
                 <Table.Cell>{brand.productLength}</Table.Cell>
                 <Table.Cell>
-                  <a
-                    href="#"
+                  <Link
+                    to={`/admin/brands-submit/${brand._id}`}
                     className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
                   >
                     Edit
-                  </a>
+                  </Link>
                 </Table.Cell>
                 <Table.Cell>
                   <button

@@ -74,8 +74,6 @@ export const ProductFormPage = () => {
     }
   }, [id, productApi]);
 
-  console.log(product);
-
   const changeField = (
     event: ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement

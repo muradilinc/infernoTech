@@ -1,4 +1,4 @@
 export interface BrandMutation {
   name: string;
-  logo: File | null;
+  logo: File | null | string;
 }

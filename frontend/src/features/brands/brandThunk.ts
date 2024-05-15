@@ -35,6 +35,27 @@ export const getBrandSingle = createAsyncThunk<Brand, string>(
   },
 );
 
+interface UpdateBrand {
+  id: string;
+  brand: BrandMutation;
+}
+
+export const updateBrand = createAsyncThunk<void, UpdateBrand>(
+  'brand/update',
+  async ({ id, brand }) => {
+    const formData = new FormData();
+    const keys = Object.keys(brand) as (keyof BrandMutation)[];
+    keys.forEach((key) => {
+      const value = brand[key];
+
+      if (value !== null) {
+        formData.append(key, value);
+      }
+    });
+    await axiosApi.patch(`/brands/${id}`, formData);
+  },
+);
+
 export const deleteBrand = createAsyncThunk<void, string>(
   'brand/delete',
   async (id) => {

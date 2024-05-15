@@ -1,8 +1,14 @@
 import { Button, FileInput, Label, TextInput } from 'flowbite-react';
-import { ChangeEvent, FormEvent, useRef, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import { BrandMutation } from '../model/types';
-import { useAppDispatch } from '../../../../app/store/hooks';
-import { createBrand } from '../../../../features/brands/brandThunk';
+import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
+import {
+  createBrand,
+  getBrandSingle,
+  updateBrand,
+} from '../../../../features/brands/brandThunk';
+import { useNavigate, useParams } from 'react-router-dom';
+import { selectBrand } from '../../../../features/brands/brandSlice';
 
 export const BrandFormPage = () => {
   const [brand, setBrand] = useState<BrandMutation>({
@@ -13,6 +19,26 @@ export const BrandFormPage = () => {
   const [filename, setFilename] = useState('');
   const [imageData, setImageData] = useState('');
   const dispatch = useAppDispatch();
+  const { id } = useParams() as { id: string };
+  const brandApi = useAppSelector(selectBrand);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (id) {
+      dispatch(getBrandSingle(id));
+    }
+  }, [id, dispatch]);
+
+  useEffect(() => {
+    if (id && brandApi) {
+      setBrand((prevState) => ({
+        ...prevState,
+        ...brandApi,
+      }));
+      setFilename(brandApi.logo);
+      setImageData('http://localhost:3000/' + brandApi.logo);
+    }
+  }, [id, brandApi]);
 
   const changeField = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -55,15 +81,24 @@ export const BrandFormPage = () => {
 
   const createBrandHandle = async (event: FormEvent) => {
     event.preventDefault();
-    await dispatch(createBrand(brand)).unwrap();
-    setBrand({
-      name: '',
-      logo: null,
-    });
-    setFilename('');
-    setImageData('');
-    if (imageSelect.current) {
-      imageSelect.current.value = '';
+    try {
+      if (id) {
+        await dispatch(updateBrand({ id, brand })).unwrap();
+      } else {
+        await dispatch(createBrand(brand)).unwrap();
+      }
+      setBrand({
+        name: '',
+        logo: null,
+      });
+      setFilename('');
+      setImageData('');
+      if (imageSelect.current) {
+        imageSelect.current.value = '';
+      }
+      navigate(-1);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -151,7 +186,7 @@ export const BrandFormPage = () => {
         className="uppercase"
         gradientDuoTone="purpleToBlue"
       >
-        create
+        {id ? 'update' : 'create'}
       </Button>
     </form>
   );

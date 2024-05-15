@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   UnprocessableEntityException,
   UploadedFile,
@@ -93,6 +94,36 @@ export class BrandsController {
     });
 
     return { ...brand?.toObject(), categories };
+  }
+
+  @Patch(':id')
+  @UseInterceptors(
+    FileInterceptor('logo', {
+      storage: diskStorage({
+        destination: './public/uploads/images',
+        filename(
+          _req: express.Request,
+          file: Express.Multer.File,
+          callback: (error: Error | null, filename: string) => void,
+        ) {
+          const filename = randomUUID();
+          callback(null, filename + '' + extname(file.originalname));
+        },
+      }),
+    }),
+  )
+  updateBrand(
+    @UploadedFile() file: Express.Multer.File,
+    @Param('id') id: string,
+    @Body() updateBrand: CreateBrandDto,
+  ) {
+    return this.brandsModel.findOneAndUpdate(
+      { _id: id },
+      {
+        ...updateBrand,
+        logo: file ? '/uploads/images/' + file.filename : null,
+      },
+    );
   }
 
   @Delete(':id')
