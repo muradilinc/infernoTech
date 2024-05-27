@@ -9,10 +9,13 @@ import { BASE_URL } from './constants';
 import { Categories, CategoriesSchema } from './schemas/categories.schema';
 import { Brands, BrandsSchema } from './schemas/brands.schema';
 import { Products, ProductsSchema } from './schemas/products.schema';
-import { DataService } from './data/data.service';
+import { CommandModule } from 'nestjs-command';
+import { SeedCommandService } from './seed/seed.service';
+import { FixturesService } from './seed/fixtures.service';
 
 @Module({
   imports: [
+    CommandModule,
     MongooseModule.forRoot(BASE_URL),
     MongooseModule.forFeature([
       { name: Brands.name, schema: BrandsSchema },
@@ -26,6 +29,6 @@ import { DataService } from './data/data.service';
     BrandsController,
     ProductsController,
   ],
-  providers: [AppService, DataService],
+  providers: [AppService, SeedCommandService, FixturesService],
 })
 export class AppModule {}

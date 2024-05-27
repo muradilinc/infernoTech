@@ -1,13 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Categories, CategoriesDocument } from '../schemas/categories.schema';
-import mongoose, { Model } from 'mongoose';
+import { Model } from 'mongoose';
 import { Brands, BrandsDocument } from '../schemas/brands.schema';
 import { Products, ProductsDocument } from '../schemas/products.schema';
-import { BASE_URL } from '../constants';
 
 @Injectable()
-export class DataService {
+export class FixturesService {
   constructor(
     @InjectModel(Categories.name)
     private categoriesModel: Model<CategoriesDocument>,
@@ -19,26 +18,7 @@ export class DataService {
     void this.createData();
   }
 
-  async dropCollection(db: mongoose.Connection, collectionName: string) {
-    try {
-      console.log('dropping db');
-      await db.dropCollection(collectionName);
-    } catch (e) {
-      console.log(
-        `Collection ${collectionName} was missing. skipping drop ...`,
-      );
-    }
-  }
-
   async createData() {
-    console.log('Connected db');
-    await mongoose.connect(BASE_URL);
-    const db = mongoose.connection;
-    const collections = ['categories', 'brands', 'products'];
-    for (const collectionName of collections) {
-      await this.dropCollection(db, collectionName);
-    }
-
     const [category1, category2] = await this.categoriesModel.create([
       {
         title: 'Проссецоры',
@@ -159,7 +139,5 @@ export class DataService {
         ],
       },
     ]);
-
-    await db.close();
   }
 }
