@@ -12,6 +12,13 @@ import { Products, ProductsSchema } from './schemas/products.schema';
 import { CommandModule } from 'nestjs-command';
 import { SeedCommandService } from './seed/seed.service';
 import { FixturesService } from './seed/fixtures.service';
+import { UsersController } from './users/users.controller';
+import { User, UserSchema } from './schemas/users.schema';
+import { Store, StoreSchema } from './schemas/store.schemas';
+import { AuthService } from './auth/auth.service';
+import { PassportModule } from '@nestjs/passport';
+import { LocalStrategy } from './auth/local.strategy';
+import { TokenAuthGuard } from './auth/token-auth.guard';
 
 @Module({
   imports: [
@@ -21,14 +28,25 @@ import { FixturesService } from './seed/fixtures.service';
       { name: Brands.name, schema: BrandsSchema },
       { name: Categories.name, schema: CategoriesSchema },
       { name: Products.name, schema: ProductsSchema },
+      { name: User.name, schema: UserSchema },
+      { name: Store.name, schema: StoreSchema },
     ]),
+    PassportModule,
   ],
   controllers: [
     AppController,
     CategoriesController,
     BrandsController,
     ProductsController,
+    UsersController,
   ],
-  providers: [AppService, SeedCommandService, FixturesService],
+  providers: [
+    AppService,
+    SeedCommandService,
+    FixturesService,
+    AuthService,
+    LocalStrategy,
+    TokenAuthGuard,
+  ],
 })
 export class AppModule {}

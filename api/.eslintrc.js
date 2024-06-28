@@ -1,3 +1,4 @@
+
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -21,7 +22,6 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
-    semi: ['error'],
     '@typescript-eslint/no-unused-vars': [
       'error',
       {
@@ -29,5 +29,6 @@ module.exports = {
         varsIgnorePattern: '^_',
       },
     ],
+    'semi': ['error'],
   },
 };
