@@ -20,7 +20,7 @@ import { CreateCategoryDto } from './create-category.dto';
 import { randomUUID } from 'crypto';
 import { extname } from 'path';
 import { Products, ProductsDocument } from '../schemas/products.schema';
-import { CategoryMutation } from './types';
+import { CategoryMutation } from '../types';
 
 @Controller('categories')
 export class CategoriesController {

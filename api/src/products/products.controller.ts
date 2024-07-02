@@ -19,7 +19,7 @@ import express from 'express';
 import { randomUUID } from 'crypto';
 import { extname } from 'path';
 import { CreateProductsDto } from './create-products.dto';
-import { ProductMutation } from './types';
+import { ProductMutation } from '../types';
 
 @Controller('products')
 export class ProductsController {

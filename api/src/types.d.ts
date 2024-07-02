@@ -17,3 +17,13 @@ export interface CharacteristicDetail {
   name: string;
   value: string;
 }
+
+export interface CategoryMutation {
+  title: string;
+  image?: string;
+}
+
+export interface BrandMutation {
+  name: string;
+  logo?: string;
+}

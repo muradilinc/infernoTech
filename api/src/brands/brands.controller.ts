@@ -21,7 +21,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Brands, BrandsDocument } from '../schemas/brands.schema';
 import { Categories, CategoriesDocument } from '../schemas/categories.schema';
 import { Products, ProductsDocument } from '../schemas/products.schema';
-import { BrandMutation } from './types';
+import { BrandMutation } from '../types';
 
 @Controller('brands')
 export class BrandsController {
