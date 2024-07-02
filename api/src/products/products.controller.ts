@@ -19,6 +19,7 @@ import express from 'express';
 import { randomUUID } from 'crypto';
 import { extname } from 'path';
 import { CreateProductsDto } from './create-products.dto';
+import { ProductMutation } from './types';
 
 @Controller('products')
 export class ProductsController {
@@ -109,17 +110,18 @@ export class ProductsController {
     @Param('id') id: string,
     @Body() updateProduct: CreateProductsDto,
   ) {
-    return this.productsModel.findOneAndUpdate(
-      { _id: id },
-      {
-        ...updateProduct,
-        image: file ? '/uploads/images/' + file.filename : null,
-        characteristics: JSON.parse(updateProduct.characteristics),
-      },
-      {
-        new: true,
-      },
-    );
+    const updateData: ProductMutation = {
+      ...updateProduct,
+      characteristics: JSON.parse(updateProduct.characteristics),
+    };
+
+    if (file) {
+      updateData.image = '/uploads/images/' + file.filename;
+    }
+
+    return this.productsModel.findOneAndUpdate({ _id: id }, updateData, {
+      new: true,
+    });
   }
 
   @Delete(':id')

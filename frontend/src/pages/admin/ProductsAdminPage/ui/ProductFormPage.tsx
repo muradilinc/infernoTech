@@ -3,7 +3,7 @@ import {
   Button,
   FileInput,
   Label,
-  Select,
+  Select, Table,
   Textarea,
   TextInput,
 } from 'flowbite-react';
@@ -141,7 +141,11 @@ export const ProductFormPage = () => {
     event.preventDefault();
     try {
       if (id) {
-        await dispatch(updateProduct({ id, product })).unwrap();
+        if (product.image === imageData) {
+          await dispatch(updateProduct({id, product: {...product, image: null}}));
+        } else {
+          await dispatch(updateProduct({ id, product })).unwrap();
+        }
       } else {
         await dispatch(createProduct(product)).unwrap();
       }
@@ -252,22 +256,40 @@ export const ProductFormPage = () => {
         />
       </div>
       <div className="flex flex-col gap-y-3">
-        {product.characteristics.map((char, index) => (
-          <div key={index}>
-            <h4>{char.title}</h4>
-            {char.characteristic.map((item, index) => (
-              <p key={index}>
-                {item.name} - {item.value}
-              </p>
-            ))}
-          </div>
-        ))}
+        <div className="overflow-x-auto w-full">
+          <Table striped>
+            {
+              product.characteristics.map((char, index) => (
+                <div key={index}>
+                  <Table.Head>
+                    <Table.HeadCell>{char.title}</Table.HeadCell>
+                  </Table.Head>
+                  <Table.Body className="divide-y">
+                    {
+                      char.characteristic.map((item, index) => (
+                        <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={index}>
+                          <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">{item.name}</Table.Cell>
+                          <Table.Cell>{item.value}</Table.Cell>
+                          <Table.Cell>
+                            <a href="#" className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
+                              Edit
+                            </a>
+                          </Table.Cell>
+                        </Table.Row>
+                      ))
+                    }
+                  </Table.Body>
+                </div>
+              ))
+            }
+          </Table>
+        </div>
         <div className="mb-2 block">
-          <Label htmlFor="username3" color="success" value="Char" />
+          <Label htmlFor="username3" color="success" value="Характеристики" />
         </div>
         <TextInput
           id="username"
-          placeholder="Nvidia RTX 4090..."
+          placeholder="Новое название характеристики"
           value={characteristic}
           onChange={(event: ChangeEvent<HTMLInputElement>) =>
             setCharacteristic(event.target.value)
@@ -325,14 +347,14 @@ export const ProductFormPage = () => {
                 // }
               />
             </div>
-            <button type="button" onClick={addChar}>
-              add
-            </button>
+            <Button type="button" onClick={addChar}>
+              Add
+            </Button>
           </div>
         </div>
-        <button type="button" onClick={addCharToProduct}>
-          add
-        </button>
+        <Button type="button" onClick={addCharToProduct}>
+          Add
+        </Button>
       </div>
       <div>
         <div className="mb-2 block">
@@ -351,12 +373,13 @@ export const ProductFormPage = () => {
       <div className="flex w-full items-center justify-center">
         {filename.length !== 0 ? (
           <div className="w-full relative bg-gray-100 rounded">
-            <button
-              className="absolute top-[5px] right-[10px] bg-red-600 text-white"
+            <Button
+              className="absolute top-[5px] right-[10px]"
+              color="failure"
               onClick={clearImageField}
             >
               clear
-            </button>
+            </Button>
             <img
               className="h-auto max-w-lg rounded-lg mx-auto"
               src={imageData}
