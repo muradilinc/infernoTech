@@ -141,11 +141,7 @@ export const ProductFormPage = () => {
     event.preventDefault();
     try {
       if (id) {
-        if (product.image === imageData) {
-          await dispatch(updateProduct({id, product: {...product, image: null}}));
-        } else {
-          await dispatch(updateProduct({ id, product })).unwrap();
-        }
+        await dispatch(updateProduct({ id, product })).unwrap();
       } else {
         await dispatch(createProduct(product)).unwrap();
       }
@@ -268,7 +264,8 @@ export const ProductFormPage = () => {
                     {
                       char.characteristic.map((item, index) => (
                         <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800" key={index}>
-                          <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">{item.name}</Table.Cell>
+                          <Table.Cell
+                            className="whitespace-nowrap font-medium text-gray-900 dark:text-white">{item.name}</Table.Cell>
                           <Table.Cell>{item.value}</Table.Cell>
                           <Table.Cell>
                             <a href="#" className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">

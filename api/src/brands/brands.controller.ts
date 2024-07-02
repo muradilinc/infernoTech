@@ -21,6 +21,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Brands, BrandsDocument } from '../schemas/brands.schema';
 import { Categories, CategoriesDocument } from '../schemas/categories.schema';
 import { Products, ProductsDocument } from '../schemas/products.schema';
+import { BrandMutation } from './types';
 
 @Controller('brands')
 export class BrandsController {
@@ -117,14 +118,13 @@ export class BrandsController {
     @Param('id') id: string,
     @Body() updateBrand: CreateBrandDto,
   ) {
-    return this.brandsModel.findOneAndUpdate(
-      { _id: id },
-      {
-        ...updateBrand,
-        logo: file ? '/uploads/images/' + file.filename : null,
-      },
-      { new: true },
-    );
+    const updateData: BrandMutation = { ...updateBrand };
+    if (file) {
+      updateData.logo = '/uploads/images/' + file.filename;
+    }
+    return this.brandsModel.findOneAndUpdate({ _id: id }, updateData, {
+      new: true,
+    });
   }
 
   @Delete(':id')

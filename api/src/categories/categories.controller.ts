@@ -20,6 +20,7 @@ import { CreateCategoryDto } from './create-category.dto';
 import { randomUUID } from 'crypto';
 import { extname } from 'path';
 import { Products, ProductsDocument } from '../schemas/products.schema';
+import { CategoryMutation } from './types';
 
 @Controller('categories')
 export class CategoriesController {
@@ -108,14 +109,15 @@ export class CategoriesController {
     @Param('id') id: string,
     @Body() updateCategory: CreateCategoryDto,
   ) {
-    return this.categoriesModel.findOneAndUpdate(
-      { _id: id },
-      {
-        ...updateCategory,
-        image: file ? '/uploads/images/' + file.filename : null,
-      },
-      { new: true },
-    );
+    const updateData: CategoryMutation = { ...updateCategory };
+
+    if (file) {
+      updateData.image = '/uploads/images/' + file.filename;
+    }
+
+    return this.categoriesModel.findOneAndUpdate({ _id: id }, updateData, {
+      new: true,
+    });
   }
 
   @Delete(':id')
