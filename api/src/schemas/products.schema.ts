@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Categories } from './categories.schema';
 import { Brands } from './brands.schema';
 import mongoose from 'mongoose';
+import { Store } from './store.schemas';
 
 @Schema()
 export class Products {
@@ -10,6 +11,9 @@ export class Products {
 
   @Prop({ required: true, ref: Brands.name })
   brand: mongoose.Schema.Types.ObjectId;
+
+  @Prop({ required: true, ref: Store.name })
+  store: mongoose.Schema.Types.ObjectId;
 
   @Prop({ required: true })
   name: string;

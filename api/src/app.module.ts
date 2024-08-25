@@ -19,6 +19,7 @@ import { AuthService } from './auth/auth.service';
 import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from './auth/local.strategy';
 import { TokenAuthGuard } from './auth/token-auth.guard';
+import { StoresController } from './stores/stores.controller';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { TokenAuthGuard } from './auth/token-auth.guard';
     BrandsController,
     ProductsController,
     UsersController,
+    StoresController,
   ],
   providers: [
     AppService,

@@ -17,7 +17,7 @@ export class SeedCommandService {
     await mongoose.connect('mongodb://localhost/inferno-tech');
     const db = mongoose.connection;
 
-    const collections = ['brands', 'categories', 'products'];
+    const collections = ['brands', 'categories', 'products', 'users', 'stores'];
 
     for (const collectionsName of collections) {
       await this.dropCollection(db, collectionsName);

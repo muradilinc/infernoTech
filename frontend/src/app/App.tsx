@@ -16,6 +16,7 @@ import {
 } from '../pages/admin/CategoriesAdminPage';
 import { CategoriesSinglePage } from '../pages/client/CategoriesSinglePage';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
+import { StorePage } from '../pages/client/StorePage';
 
 const App = () => {
   const { pathname } = useLocation() as { pathname: string };
@@ -53,6 +54,7 @@ const App = () => {
         <Layout>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/store/:id" element={<StorePage />} />
             <Route path="/brands/:id" element={<SingleBrandPage />} />
             <Route path="/category" element={<CategoriesPage />} />
             <Route path="/category/:id" element={<CategoriesSinglePage />} />

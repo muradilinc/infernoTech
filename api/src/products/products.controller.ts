@@ -71,7 +71,7 @@ export class ProductsController {
 
   @Get()
   getAll() {
-    return this.productsModel.find().populate('brand category');
+    return this.productsModel.find().populate('brand category store');
   }
 
   @Get(':id')
@@ -85,7 +85,7 @@ export class ProductsController {
       return brands;
     }
     if (categories.length === 0 && brands.length === 0) {
-      return this.productsModel.findById(id).populate('brand category');
+      return this.productsModel.findById(id).populate('brand category store');
     }
   }
 

@@ -55,4 +55,4 @@ StoreSchema.set('toJSON', {
   },
 });
 
-export type UserDocument = Store & Document & StoreMethods;
+export type StoreDocument = Store & Document & StoreMethods;

@@ -3,6 +3,7 @@ import { getProductAll, getProductSingle } from './productsThunk';
 import { RootState } from '../../app/store/store';
 import { Brand } from '../brands/brandSlice';
 import { Category } from '../categories/categoriesSlice';
+import { Store } from '../store/storeSlice';
 
 interface Characteristic {
   title: string;
@@ -18,6 +19,7 @@ export interface Product {
   _id: string;
   category: Category;
   brand: Brand;
+  store: Store;
   name: string;
   price: string;
   description: string;
