@@ -20,11 +20,11 @@ export class UsersController {
   @Post()
   async register(@Body() registerDto: CreateUserDto) {
     try {
-      const { email, password, name } = registerDto;
+      const { email, password, displayName } = registerDto;
       const user = new this.userModel({
         email,
         password,
-        displayName: name,
+        displayName,
       });
       user.generateToken();
       await user.save();

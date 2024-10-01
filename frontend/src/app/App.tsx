@@ -17,6 +17,8 @@ import {
 import { CategoriesSinglePage } from '../pages/client/CategoriesSinglePage';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
 import { StorePage } from '../pages/client/StorePage';
+import { AuthPage, RegisterPage } from '../pages/Auth';
+import { ToastContainer } from 'react-toastify';
 
 const App = () => {
   const { pathname } = useLocation() as { pathname: string };
@@ -48,12 +50,26 @@ const App = () => {
 
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       {pathname.includes('admin') ? (
         adminRoutes
       ) : (
         <Layout>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<AuthPage />} />
+            <Route path="/register" element={<RegisterPage />} />
             <Route path="/store/:id" element={<StorePage />} />
             <Route path="/brands/:id" element={<SingleBrandPage />} />
             <Route path="/category" element={<CategoriesPage />} />

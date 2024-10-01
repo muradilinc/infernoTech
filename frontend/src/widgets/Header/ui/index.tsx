@@ -1,7 +1,11 @@
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import { DropList } from '../../../shared/dropList';
+import { useAppSelector } from '../../../app/store/hooks';
+import { selectUser } from '../../../features/auth/authSlice';
+import { Link } from 'react-router-dom';
 
 export const Header = () => {
+  const user = useAppSelector(selectUser);
   return (
     <div className="container mx-auto">
       <Navbar fluid rounded>
@@ -15,32 +19,41 @@ export const Header = () => {
             Inferno Tech
           </span>
         </Navbar.Brand>
-        <div className="flex md:order-2">
-          <Dropdown
-            arrowIcon={false}
-            inline
-            label={
-              <Avatar
-                alt="User settings"
-                img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                rounded
-              />
-            }
-          >
-            <Dropdown.Header>
-              <span className="block text-sm">Bonnie Green</span>
-              <span className="block truncate text-sm font-medium">
+        {
+          user ?
+            <div className="flex md:order-2">
+              <Dropdown
+                arrowIcon={false}
+                inline
+                label={
+                  <Avatar
+                    alt="User settings"
+                    img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                    rounded
+                  />
+                }
+              >
+                <Dropdown.Header>
+                  <span className="block text-sm">Bonnie Green</span>
+                  <span className="block truncate text-sm font-medium">
                 name@flowbite.com
               </span>
-            </Dropdown.Header>
-            <Dropdown.Item>Dashboard</Dropdown.Item>
-            <Dropdown.Item>Settings</Dropdown.Item>
-            <Dropdown.Item>Earnings</Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item>Sign out</Dropdown.Item>
-          </Dropdown>
-          <Navbar.Toggle />
-        </div>
+                </Dropdown.Header>
+                <Dropdown.Item>Dashboard</Dropdown.Item>
+                <Dropdown.Item>Settings</Dropdown.Item>
+                <Dropdown.Item>Earnings</Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item>Sign out</Dropdown.Item>
+              </Dropdown>
+              <Navbar.Toggle />
+            </div>
+            :
+            <div className="flex md:order-2">
+              <Link to={'/login'}>
+                sign in
+              </Link>
+            </div>
+        }
         <Navbar.Collapse>
           <Navbar.Link href="/" active>
             Home
