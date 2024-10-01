@@ -23,7 +23,7 @@ export const ProductList: React.FC<Props> = ({ data }) => {
   return (
     <div className="flex gap-y-3 flex-col my-[25px]">
       <h4 className="text-4xl font-bold dark:text-white">В наличии</h4>
-      <div className="grid grid-cols-5 gap-y-3 gap-x-5">
+      <div className="flex flex-wrap gap-3">
         {products.map((products) => (
           <ProductCard key={products._id} product={products} />
         ))}
